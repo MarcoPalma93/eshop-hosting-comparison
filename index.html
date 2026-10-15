@@ -139,20 +139,21 @@
   <!-- MODELOVÉ SCÉNÁŘE -->
   <section>
     <h2>Modelové scénáře podle návštěvnosti</h2>
-    <p class="lead">Odhad měsíční ceny jednoho eshopu v různých fázích. Medusa Cloud účtuje dle spotřeby, proto je uvedeno rozpětí.</p>
+    <p class="lead">Odhad měsíční ceny jednoho eshopu v různých fázích. Obě varianty jsou spočítané ze stejných předpokladů o návštěvnosti.</p>
     <div class="table-scroll">
     <table>
       <thead>
         <tr><th>Scénář</th><th class="num">Návštěvníci / den</th><th class="num">Objednávky / den</th><th class="num">Medusa Cloud</th><th class="num">Vlastní AWS</th></tr>
       </thead>
       <tbody>
-        <tr><td><b>Start</b><br><span class="note">první měsíce po spuštění</span></td><td class="num">300 – 800</td><td class="num">5 – 15</td><td class="num">2 300 – 4 000 Kč</td><td class="num"><b>~1 000 Kč</b></td></tr>
-        <tr><td><b>Růst</b><br><span class="note">zaběhnutý eshop, kampaně</span></td><td class="num">1 500 – 3 000</td><td class="num">30 – 60</td><td class="num">4 600 – 6 900 Kč</td><td class="num"><b>~1 950 Kč</b></td></tr>
-        <tr><td><b>Silná sezóna</b><br><span class="note">Black Friday, Vánoce, velká kampaň</span></td><td class="num">5 000 – 10 000</td><td class="num">100 – 200</td><td class="num">8 000 – 11 500 Kč</td><td class="num"><b>~4 350 Kč</b></td></tr>
+        <tr><td><b>Start</b><br><span class="note">první měsíce po spuštění</span></td><td class="num">300 – 800</td><td class="num">5 – 15</td><td class="num">~2 350 Kč</td><td class="num"><b>~1 000 Kč</b></td></tr>
+        <tr><td><b>Růst</b><br><span class="note">zaběhnutý eshop, kampaně</span></td><td class="num">1 500 – 3 000</td><td class="num">30 – 60</td><td class="num">~2 950 Kč</td><td class="num"><b>~1 000 Kč</b></td></tr>
+        <tr><td><b>Sezónní měsíc</b><br><span class="note">Black Friday, Vánoce, velká kampaň</span></td><td class="num">5 000 – 10 000</td><td class="num">100 – 200</td><td class="num">~5 000 Kč</td><td class="num"><b>~1 750 Kč</b></td></tr>
       </tbody>
     </table>
     </div>
-    <p class="note">U AWS se výkon navyšuje ručně (změna velikosti serveru, cca 15 minut). Na sezónu lze výkon dočasně zvýšit a poté zase snížit. Medusa Cloud navyšuje výkon automaticky, cena se tím ale zvyšuje.</p>
+    <p class="note"><b>Medusa Cloud</b> účtuje podle spotřeby – cena roste hlavně s objemem přenesených dat nad rámec tarifu. <b>Vlastní AWS</b> má přenos dat v ceně serveru, cena se mění jen při zvětšení serveru: při růstu stačí stávající, na sezónu se dočasně zvětší (cca 15 minut, platí se jen po dobu navýšení).</p>
+    <p class="note">U Medusa Cloud není zatím jasné, zda se výpočetní čas účtuje za každý server, nebo za celé prostředí. V horším případě se cena ve všech scénářích zvýší o cca 1 700 Kč / měsíc.</p>
   </section>
 
   <!-- VÍCE ESHOPŮ -->

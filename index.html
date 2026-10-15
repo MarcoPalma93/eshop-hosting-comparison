@@ -127,7 +127,7 @@
         <tr><td><b>Administrace na vlastní doméně</b></td><td class="no">Ne (až od tarifu za ~6 900 Kč)</td><td class="yes">Ano</td></tr>
         <tr><td><b>Umístění dat (GDPR)</b></td><td class="warn">EU (Frankfurt) – volitelné, zpracovatel z USA</td><td class="yes">EU – Frankfurt, plně pod naší kontrolou</td></tr>
         <tr><td><b>Kdo řeší provoz a zálohy</b></td><td class="yes">Dodavatel</td><td class="warn">Interní tým</td></tr>
-        <tr><td><b>Jednorázové nastavení</b></td><td>1 – 1,5 člověkodne</td><td>2 – 3 člověkodny</td></tr>
+        <tr><td><b>Jednorázové nastavení</b></td><td>1 – 1,5 MD</td><td>2 – 3 MD</td></tr>
         <tr><td><b>Průběžná údržba</b></td><td>~1 h / měsíc</td><td>~2 h / měsíc</td></tr>
         <tr><td><b>Další eshop</b></td><td>+2 300 Kč / měsíc (každý zvlášť)</td><td>+650 Kč / měsíc (sdílená infrastruktura)</td></tr>
         <tr><td><b>Pozdější přechod jinam</b></td><td class="warn">Na vlastní AWS: středně náročný (viz <a href="#migrace">Přechod z Cloudu</a>)</td><td class="yes">Na Cloud: snadný</td></tr>
@@ -172,7 +172,7 @@
     </div>
     <div class="grid2" style="margin-top:16px">
       <p class="note"><b>Medusa Cloud:</b> každý eshop je samostatný projekt s vlastním tarifem. Cena roste lineárně. Uvedeno bez případných doplatků za překročení limitů.</p>
-      <p class="note"><b>Vlastní AWS:</b> další eshopy sdílejí server a databázi, přidávají se jen náklady na jejich podíl výkonu. Nasazení dalšího eshopu z připravené šablony zabere cca 1 člověkoden.</p>
+      <p class="note"><b>Vlastní AWS:</b> další eshopy sdílejí server a databázi, přidávají se jen náklady na jejich podíl výkonu. Nasazení dalšího eshopu z připravené šablony zabere cca 1 MD.</p>
     </div>
   </section>
 
@@ -210,7 +210,7 @@
   <!-- DOPORUČENÍ -->
   <section>
     <h2>Doporučení</h2>
-    <p><b>Vlastní provoz na AWS.</b> Nižší a předvídatelné měsíční náklady, vše na vlastní doméně, data prokazatelně v EU a výrazná úspora při rozšíření na další eshopy. Vyšší vstupní práce (1–1,5 člověkodne navíc) se u jediného eshopu vyrovná během dvou let a s každým dalším eshopem nebo vyšší návštěvností úspora roste.</p>
+    <p><b>Vlastní provoz na AWS.</b> Nižší a předvídatelné měsíční náklady, vše na vlastní doméně, data prokazatelně v EU a výrazná úspora při rozšíření na další eshopy. Vyšší vstupní práce (1–1,5 MD navíc) se u jediného eshopu vyrovná během dvou let a s každým dalším eshopem nebo vyšší návštěvností úspora roste.</p>
     <p class="note">Medusa Cloud dává smysl, pokud by šlo o jediný eshop bez plánu dalšího rozšíření a bez kapacity interního týmu na údržbu.</p>
     <div class="callout">
       <b>Otevřené otázky na Medusa Cloud</b> (cena a ochrana dat):
@@ -246,8 +246,8 @@
       <div>
         <h3 style="margin:0 0 6px">Odhad náročnosti přechodu</h3>
         <ul style="margin:0;padding-left:18px">
-          <li>Příprava infrastruktury AWS: <b>1,5 – 2 člověkodny</b></li>
-          <li>Samotný přesun a přepojení služeb: <b>~1 člověkoden</b></li>
+          <li>Příprava infrastruktury AWS: <b>1,5 – 2 MD</b></li>
+          <li>Samotný přesun a přepojení služeb: <b>~1 MD</b></li>
           <li>Plánovaná odstávka eshopu: <b>1 – 2 hodiny</b> (v noci)</li>
         </ul>
       </div>
@@ -312,20 +312,20 @@
       <thead><tr><th>Funkce</th><th>Řešení</th><th>Stav</th><th class="num">Práce</th></tr></thead>
       <tbody>
         <tr><td colspan="4"><b>Potřebné ke spuštění</b></td></tr>
-        <tr><td>Doprava Zásilkovna (výdejní místa, Z-BOX, doručení domů, dobírka, štítky, sledování)</td><td>Hotový doplněk od komunity, převezmeme a upravíme</td><td class="warn">Komunitní</td><td class="num">1 – 1,5 dne</td></tr>
-        <tr><td>Platby Comgate (karty, bankovní tlačítka, Apple / Google Pay)</td><td>Hotový doplněk od komunity, prověříme a otestujeme</td><td class="warn">Komunitní</td><td class="num">0,5 dne</td></tr>
-        <tr><td>QR platba pro převod na účet</td><td>Hotová knihovna</td><td class="yes">Hotové</td><td class="num">0,25 dne</td></tr>
-        <tr><td>Fakturace přes Fakturoid (automatické faktury, párování plateb)</td><td>Vlastní vývoj</td><td class="no">Vyvíjíme</td><td class="num">1 – 1,5 dne</td></tr>
-        <tr><td>Transakční e-maily v češtině (objednávka, odeslání, registrace)</td><td>Oficiální napojení + vlastní šablony</td><td class="warn">Šablony vyvíjíme</td><td class="num">0,5 dne</td></tr>
+        <tr><td>Doprava Zásilkovna (výdejní místa, Z-BOX, doručení domů, dobírka, štítky, sledování)</td><td>Hotový doplněk od komunity, převezmeme a upravíme</td><td class="warn">Komunitní</td><td class="num">1 – 1,5 MD</td></tr>
+        <tr><td>Platby Comgate (karty, bankovní tlačítka, Apple / Google Pay)</td><td>Hotový doplněk od komunity, prověříme a otestujeme</td><td class="warn">Komunitní</td><td class="num">0,5 MD</td></tr>
+        <tr><td>QR platba pro převod na účet</td><td>Hotová knihovna</td><td class="yes">Hotové</td><td class="num">0,25 MD</td></tr>
+        <tr><td>Fakturace přes Fakturoid (automatické faktury, párování plateb)</td><td>Vlastní vývoj</td><td class="no">Vyvíjíme</td><td class="num">1 – 1,5 MD</td></tr>
+        <tr><td>Transakční e-maily v češtině (objednávka, odeslání, registrace)</td><td>Oficiální napojení + vlastní šablony</td><td class="warn">Šablony vyvíjíme</td><td class="num">0,5 MD</td></tr>
         <tr><td>Vyhledávání v produktech</td><td>Oficiální součást Medusy</td><td class="yes">Hotové</td><td class="num">—</td></tr>
         <tr><td>Přihlášení zákazníků (e-mail, Google)</td><td>Oficiální součást Medusy</td><td class="yes">Hotové</td><td class="num">—</td></tr>
         <tr><td colspan="4"><b>Krátce po spuštění</b></td></tr>
-        <tr><td>Feedy pro Heureka, Zboží.cz a Google Nákupy</td><td>Vlastní vývoj</td><td class="no">Vyvíjíme</td><td class="num">0,5 – 1 den</td></tr>
-        <tr><td>Měření návštěvnosti (Google Analytics, Meta Pixel)</td><td>Napojení na straně eshopu</td><td class="yes">Hotové</td><td class="num">0,25 dne</td></tr>
-        <tr><td>Newsletter (Ecomail)</td><td>Komunitní doplněk – nutno ověřit, případně vlastní vývoj</td><td class="warn">K ověření</td><td class="num">0,5 – 1 den</td></tr>
-        <tr><td>Připomenutí opuštěného košíku</td><td>Komunitní doplněk</td><td class="warn">Komunitní</td><td class="num">0,5 dne</td></tr>
-        <tr><td>Hodnocení produktů</td><td>Komunitní doplněk</td><td class="warn">Komunitní</td><td class="num">0,5 – 1 den</td></tr>
-        <tr><td>Další dopravci (PPL, DPD, Balíkovna)</td><td>Vlastní vývoj – pouze pokud nebude Zásilkovna stačit</td><td class="no">Volitelné</td><td class="num">1,5 – 2,5 dne / dopravce</td></tr>
+        <tr><td>Feedy pro Heureka, Zboží.cz a Google Nákupy</td><td>Vlastní vývoj</td><td class="no">Vyvíjíme</td><td class="num">0,5 – 1 MD</td></tr>
+        <tr><td>Měření návštěvnosti (Google Analytics, Meta Pixel)</td><td>Napojení na straně eshopu</td><td class="yes">Hotové</td><td class="num">0,25 MD</td></tr>
+        <tr><td>Newsletter (Ecomail)</td><td>Komunitní doplněk – nutno ověřit, případně vlastní vývoj</td><td class="warn">K ověření</td><td class="num">0,5 – 1 MD</td></tr>
+        <tr><td>Připomenutí opuštěného košíku</td><td>Komunitní doplněk</td><td class="warn">Komunitní</td><td class="num">0,5 MD</td></tr>
+        <tr><td>Hodnocení produktů</td><td>Komunitní doplněk</td><td class="warn">Komunitní</td><td class="num">0,5 – 1 MD</td></tr>
+        <tr><td>Další dopravci (PPL, DPD, Balíkovna)</td><td>Vlastní vývoj – pouze pokud nebude Zásilkovna stačit</td><td class="no">Volitelné</td><td class="num">1,5 – 2,5 MD / dopravce</td></tr>
       </tbody>
     </table>
     </div>

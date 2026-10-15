@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Provoz eshopu: Medusa Cloud vs. vlastní AWS</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #fff; --text: #1d2330; --muted: #5d6677; --line: #e3e6ec;
+    --cloud: #6d4aff; --cloud-bg: #f1edff; --aws: #e07a00; --aws-bg: #fff4e5;
+    --ok: #1f8a4c; --warn: #b26a00;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); }
+  header { background: #141a26; color: #fff; padding: 48px 20px 40px; }
+  header .wrap { max-width: 1040px; margin: 0 auto; }
+  header h1 { margin: 0 0 8px; font-size: 2rem; }
+  header p { margin: 0; color: #b9c1d0; max-width: 720px; }
+  main { max-width: 1040px; margin: 0 auto; padding: 24px 20px 64px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 28px; margin: 24px 0; }
+  h2 { margin: 0 0 6px; font-size: 1.4rem; }
+  .lead { color: var(--muted); margin: 0 0 20px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+  .tag { display: inline-block; font-size: .75rem; font-weight: 600; padding: 2px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+  .tag.cloud { background: var(--cloud-bg); color: var(--cloud); }
+  .tag.aws { background: var(--aws-bg); color: var(--aws); }
+  .option { border: 2px solid var(--line); border-radius: 12px; padding: 22px; }
+  .option.cloud { border-color: var(--cloud); }
+  .option.aws { border-color: var(--aws); }
+  .option h3 { margin: 10px 0 4px; font-size: 1.2rem; }
+  .price { font-size: 2.2rem; font-weight: 700; margin: 8px 0 0; }
+  .price small { font-size: .95rem; font-weight: 400; color: var(--muted); }
+  .option ul { padding-left: 18px; margin: 12px 0 0; }
+  .option li { margin: 4px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  .table-scroll { overflow-x: auto; }
+  .yes { color: var(--ok); font-weight: 600; }
+  .no { color: #c0392b; font-weight: 600; }
+  .warn { color: var(--warn); font-weight: 600; }
+  .arch { border-radius: 12px; padding: 20px; }
+  .arch.cloud { background: var(--cloud-bg); }
+  .arch.aws { background: var(--aws-bg); }
+  .arch h3 { margin: 0 0 14px; }
+  .flow { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+  .node { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .node b { display: block; }
+  .node code { font-size: .9rem; background: #f0f2f5; padding: 1px 6px; border-radius: 4px; }
+  .node .who { font-size: .8rem; color: var(--muted); }
+  .arrow { text-align: center; color: var(--muted); font-size: 1.1rem; line-height: 1.6; }
+  .zone { border: 2px dashed; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .arch.cloud .zone { border-color: var(--cloud); }
+  .arch.aws .zone { border-color: var(--aws); }
+  .zone-label { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .arch.cloud .zone-label { color: var(--cloud); }
+  .arch.aws .zone-label { color: var(--aws); }
+  .note { font-size: .88rem; color: var(--muted); }
+  .callout { background: #f3f6fb; border-left: 4px solid #4a6fa5; padding: 14px 16px; border-radius: 6px; margin-top: 16px; }
+  .accordion summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .accordion summary::-webkit-details-marker { display: none; }
+  .accordion summary h2 { margin: 0; }
+  .accordion summary h2::before { content: "▸"; display: inline-block; width: 1.1em; color: var(--muted); transition: transform .15s; }
+  .accordion details[open] summary h2::before { transform: rotate(90deg); }
+  .accordion .hint { font-size: .85rem; color: var(--muted); }
+  .accordion details[open] summary { margin-bottom: 12px; }
+  footer { max-width: 1040px; margin: 0 auto; padding: 0 20px 48px; color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Kde bude eshop běžet?</h1>
+    <p>Porovnání dvou variant provozu eshopu postaveného na platformě Medusa: hostovaná služba <b>Medusa Cloud</b> vs. <b>vlastní provoz na AWS</b> (Amazon Web Services, datacentrum Frankfurt).</p>
+  </div>
+</header>
+
+<main>
+  <!-- SOUHRN -->
+  <section>
+    <h2>Souhrn</h2>
+    <p class="lead">Měsíční cena za provoz jednoho eshopu při startovní návštěvnosti (stovky návštěvníků denně). Ceny jsou bez DPH.</p>
+    <div class="grid2">
+      <div class="option cloud">
+        <span class="tag cloud">Varianta 1</span>
+        <h3>Medusa Cloud (tarif Launch)</h3>
+        <p class="price">2 300 – 4 000 Kč <small>/ měsíc</small></p>
+        <ul>
+          <li>Provoz, zálohy a aktualizace řeší dodavatel</li>
+          <li>Rychlé spuštění, minimum interní práce</li>
+          <li>Eshop běží na naší doméně, správa obchodu na doméně Medusy</li>
+          <li>Cena roste s návštěvností, doplatky se účtují automaticky bez stropu</li>
+          <li>Pozdější přechod na vlastní infrastrukturu je možný, ale stojí práci</li>
+          <li>Data lze hostovat v EU (Frankfurt), zpracovatelem je ale americká firma</li>
+        </ul>
+      </div>
+      <div class="option aws">
+        <span class="tag aws">Varianta 2 – doporučeno</span>
+        <h3>Vlastní provoz na AWS</h3>
+        <p class="price">~1 000 Kč <small>/ měsíc</small></p>
+        <ul>
+          <li>2–4× nižší měsíční cena</li>
+          <li>Vše na naší doméně, data prokazatelně v EU (Frankfurt)</li>
+          <li>Předvídatelná fixní cena</li>
+          <li>Údržbu zajišťujeme interně (cca 2 h měsíčně)</li>
+          <li>Další eshopy lze přidat za zlomek ceny</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- POROVNÁNÍ -->
+  <section>
+    <h2>Porovnání v kostce</h2>
+    <p class="lead">Klíčové parametry z pohledu byznysu.</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th></th><th>Medusa Cloud</th><th>Vlastní AWS</th></tr></thead>
+      <tbody>
+        <tr><td><b>Měsíční cena (start)</b></td><td>2 300 – 4 000 Kč</td><td>~1 000 Kč</td></tr>
+        <tr><td><b>Testovací prostředí</b> (pro ověření změn před nasazením)</td><td>+1 400 Kč / měsíc</td><td>+300 Kč / měsíc</td></tr>
+        <tr><td><b>Předvídatelnost ceny</b></td><td class="warn">Proměnlivá – doplatky za překročení limitů se účtují automaticky, strop nelze nastavit (jen upozornění)</td><td class="yes">Fixní měsíční cena</td></tr>
+        <tr><td><b>Eshop na vlastní doméně</b></td><td class="yes">Ano</td><td class="yes">Ano</td></tr>
+        <tr><td><b>Administrace na vlastní doméně</b></td><td class="no">Ne (až od tarifu za ~6 900 Kč)</td><td class="yes">Ano</td></tr>
+        <tr><td><b>Umístění dat (GDPR)</b></td><td class="warn">EU (Frankfurt) – volitelné, zpracovatel z USA</td><td class="yes">EU – Frankfurt, plně pod naší kontrolou</td></tr>
+        <tr><td><b>Kdo řeší provoz a zálohy</b></td><td class="yes">Dodavatel</td><td class="warn">Interní tým</td></tr>
+        <tr><td><b>Jednorázové nastavení</b></td><td>1 – 1,5 člověkodne</td><td>2 – 3 člověkodny</td></tr>
+        <tr><td><b>Průběžná údržba</b></td><td>~1 h / měsíc</td><td>~2 h / měsíc</td></tr>
+        <tr><td><b>Další eshop</b></td><td>+2 300 Kč / měsíc (každý zvlášť)</td><td>+650 Kč / měsíc (sdílená infrastruktura)</td></tr>
+        <tr><td><b>Pozdější přechod jinam</b></td><td class="warn">Na vlastní AWS: středně náročný (viz <a href="#migrace">Přechod z Cloudu</a>)</td><td class="yes">Na Cloud: snadný</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- MODELOVÉ SCÉNÁŘE -->
+  <section>
+    <h2>Modelové scénáře podle návštěvnosti</h2>
+    <p class="lead">Odhad měsíční ceny jednoho eshopu v různých fázích. Medusa Cloud účtuje dle spotřeby, proto je uvedeno rozpětí.</p>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Scénář</th><th class="num">Návštěvníci / den</th><th class="num">Objednávky / den</th><th class="num">Medusa Cloud</th><th class="num">Vlastní AWS</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>Start</b><br><span class="note">první měsíce po spuštění</span></td><td class="num">300 – 800</td><td class="num">5 – 15</td><td class="num">2 300 – 4 000 Kč</td><td class="num"><b>~1 000 Kč</b></td></tr>
+        <tr><td><b>Růst</b><br><span class="note">zaběhnutý eshop, kampaně</span></td><td class="num">1 500 – 3 000</td><td class="num">30 – 60</td><td class="num">4 600 – 6 900 Kč</td><td class="num"><b>~1 950 Kč</b></td></tr>
+        <tr><td><b>Silná sezóna</b><br><span class="note">Black Friday, Vánoce, velká kampaň</span></td><td class="num">5 000 – 10 000</td><td class="num">100 – 200</td><td class="num">8 000 – 11 500 Kč</td><td class="num"><b>~4 350 Kč</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">U AWS se výkon navyšuje ručně (změna velikosti serveru, cca 15 minut). Na sezónu lze výkon dočasně zvýšit a poté zase snížit. Medusa Cloud navyšuje výkon automaticky, cena se tím ale zvyšuje.</p>
+  </section>
+
+  <!-- VÍCE ESHOPŮ -->
+  <section>
+    <h2>Škálování na další eshopy</h2>
+    <p class="lead">Řešení je připravené pro opakované použití. Měsíční cena za provoz při startovní návštěvnosti každého eshopu.</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Počet eshopů</th><th class="num">Medusa Cloud</th><th class="num">Vlastní AWS</th><th class="num">Úspora AWS</th></tr></thead>
+      <tbody>
+        <tr><td>1 eshop</td><td class="num">2 300 Kč</td><td class="num">1 000 Kč</td><td class="num">1 300 Kč</td></tr>
+        <tr><td>2 eshopy</td><td class="num">4 550 Kč</td><td class="num">1 650 Kč</td><td class="num">2 900 Kč</td></tr>
+        <tr><td>3 eshopy</td><td class="num">6 850 Kč</td><td class="num">2 300 Kč</td><td class="num">4 550 Kč</td></tr>
+        <tr><td>5 eshopů</td><td class="num">11 400 Kč</td><td class="num">3 550 Kč</td><td class="num">7 850 Kč</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+      <p class="note"><b>Medusa Cloud:</b> každý eshop je samostatný projekt s vlastním tarifem. Cena roste lineárně. Uvedeno bez případných doplatků za překročení limitů.</p>
+      <p class="note"><b>Vlastní AWS:</b> další eshopy sdílejí server a databázi, přidávají se jen náklady na jejich podíl výkonu. Nasazení dalšího eshopu z připravené šablony zabere cca 1 člověkoden.</p>
+    </div>
+  </section>
+
+  <!-- NÁKLADY NA VÝVOJ -->
+  <section>
+    <h2>Pracnost a celkové náklady</h2>
+    <p class="lead">Kolik práce stojí spuštění backendu a napojení na služby, a kolik nás eshop bude stát celkem včetně provozu. Počítáno sazbou <b>8 000 Kč / MD</b> (1 000 Kč / h).</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Položka</th><th class="num">Medusa Cloud</th><th class="num">Vlastní AWS</th></tr></thead>
+      <tbody>
+        <tr><td><b>Měsíční provoz</b><br><span class="note">služba + interní údržba (Cloud 1 h, AWS 2 h měsíčně)</span></td><td class="num">3 300 – 5 000 Kč / měsíc</td><td class="num">3 000 Kč / měsíc</td></tr>
+        <tr><td><b>Nastavení</b> (jednorázově)<br><span class="note">provoz, zálohy, nasazování, základní nastavení obchodu</span></td><td class="num">1 – 1,5 MD<br><span class="note">8 – 12 tis. Kč</span></td><td class="num">2 – 3 MD<br><span class="note">16 – 24 tis. Kč</span></td></tr>
+        <tr><td><b>Pluginy</b> (jednorázově)<br><span class="note">Zásilkovna, Comgate, QR platba, Fakturoid, e-maily v češtině, vč. testování</span></td><td class="num">4,5 – 5,5 MD<br><span class="note">36 – 44 tis. Kč</span></td><td class="num">4,5 – 5,5 MD<br><span class="note">36 – 44 tis. Kč</span></td></tr>
+        <tr><td><b>Celkem jednorázově</b></td><td class="num"><b>44 – 56 tis. Kč</b></td><td class="num"><b>52 – 68 tis. Kč</b><br><span class="note">očekávaně ~60 tis. Kč</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Nezahrnuje vývoj samotného eshopu (design a frontend) – ten závisí na grafickém návrhu a je pro obě varianty stejný. Doplňky po spuštění (feedy pro srovnávače, newsletter, hodnocení apod.) představují dalších 2 – 4 MD.</p>
+    <p class="note"><b>Co ovlivňuje horní hranici odhadu:</b> schvalování u dodavatelů (smlouva s Comgate, přístup k Zásilkovně, aktivace e-mailů v AWS), testování Zásilkovny na ostrém prostředí (nemá testovací režim) a ruční ověření celého nákupu včetně skutečných plateb.</p>
+
+    <h3 style="margin:24px 0 8px">Celkové náklady (vývoj ke spuštění + provoz + interní údržba)</h3>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Období</th><th class="num">Medusa Cloud</th><th class="num">Vlastní AWS</th></tr></thead>
+      <tbody>
+        <tr><td>1 eshop – první rok</td><td class="num">84 – 116 tis. Kč</td><td class="num">88 – 104 tis. Kč</td></tr>
+        <tr><td>1 eshop – dva roky</td><td class="num">123 – 176 tis. Kč</td><td class="num">124 – 140 tis. Kč</td></tr>
+        <tr><td>2 eshopy – dva roky</td><td class="num">201 – 305 tis. Kč</td><td class="num">176 – 204 tis. Kč</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Předpoklady: startovní návštěvnost, interní údržba Cloud 1 h / měsíc, AWS 2 h / měsíc (+0,5 h resp. +1 h za každý další eshop). Druhý eshop znovu využije hotová napojení – jeho spuštění stojí 1,5 – 2,5 MD (Cloud) resp. 1,5 – 3 MD (AWS).</p>
+    <p class="callout"><b>Shrnutí:</b> U jednoho eshopu vychází AWS za dva roky srovnatelně až levněji než Cloud a hlavně s výrazně užším, předvídatelnějším rozpětím. Se dvěma eshopy je AWS levnější o 25 – 100 tis. Kč. K tomu přináší kontrolu nad daty, vlastní domény a žádnou závislost na dodavateli.</p>
+  </section>
+
+  <!-- DOPORUČENÍ -->
+  <section>
+    <h2>Doporučení</h2>
+    <p><b>Vlastní provoz na AWS.</b> Nižší a předvídatelné měsíční náklady, vše na vlastní doméně, data prokazatelně v EU a výrazná úspora při rozšíření na další eshopy. Vyšší vstupní práce (1–1,5 člověkodne navíc) se u jediného eshopu vyrovná během dvou let a s každým dalším eshopem nebo vyšší návštěvností úspora roste.</p>
+    <p class="note">Medusa Cloud dává smysl, pokud by šlo o jediný eshop bez plánu dalšího rozšíření a bez kapacity interního týmu na údržbu.</p>
+    <div class="callout">
+      <b>Otevřené otázky na Medusa Cloud</b> (cena a ochrana dat):
+      <ul style="margin:6px 0 0">
+        <li>Zůstávají v EU i zálohy, logy a úložiště souborů? Kdo jsou subdodavatelé a odkud přistupuje podpora?</li>
+        <li>Jak se počítají výpočetní hodiny – za každý server, nebo za celé prostředí? (rozdíl cca +1 700 Kč / měsíc)</li>
+        <li>Lze nastavit pevný strop útraty?</li>
+        <li>Lze hromadně exportovat obrázky a soubory, případně používat vlastní úložiště?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MIGRACE -->
+  <section id="migrace">
+    <h2>Přechod z Cloudu na vlastní AWS (riziko „vendor lock-in“)</h2>
+    <p class="lead">Pokud bychom začali na Medusa Cloud, jak těžké bude později přejít na vlastní infrastrukturu?</p>
+    <p><b>Hodnocení: nízké až střední riziko.</b> Eshop i data jsou naše a jsou přenositelné – Medusa je open-source a stejný kód běží v Cloudu i na AWS. Přechod ale není zadarmo.</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Co se přesouvá</th><th>Náročnost</th><th>Poznámka</th></tr></thead>
+      <tbody>
+        <tr><td><b>Aplikace (eshop, administrace)</b></td><td class="yes">Snadné</td><td>Kód je v našem repozitáři, nic se nepřepisuje.</td></tr>
+        <tr><td><b>Databáze</b> (produkty, objednávky, zákazníci)</td><td class="yes">Snadné</td><td>Cloud umožňuje kdykoli stáhnout kompletní zálohu databáze.</td></tr>
+        <tr><td><b>Obrázky a soubory</b></td><td class="warn">Střední</td><td>K úložišti Cloudu nemáme přímý přístup a hromadný export není zdokumentovaný. Obrázky lze stáhnout přes veřejné adresy, ale je potřeba přepsat odkazy v databázi.</td></tr>
+        <tr><td><b>Napojení služeb</b> (Comgate, Zásilkovna, Fakturoid)</td><td class="warn">Střední</td><td>Služby volají adresu backendu, která je v Cloudu na doméně Medusy. Při přechodu je nutné adresu přenastavit u každé služby.</td></tr>
+        <tr><td><b>Služby dostupné jen v Cloudu</b> (e-maily, vyhledávání, cache)</td><td class="warn">Střední</td><td>Pokud je začneme používat, musíme je nahradit (Amazon SES, vestavěné vyhledávání).</td></tr>
+        <tr><td><b>Doména eshopu</b></td><td class="yes">Snadné</td><td>Doména je naše, jen se přesměruje. Zákazníci nic nepoznají.</td></tr>
+        <tr><td><b>Přihlášení zákazníků</b></td><td class="yes">Snadné</td><td>Účty i hesla jsou v databázi, zákazníci se nemusí znovu registrovat.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+      <div>
+        <h3 style="margin:0 0 6px">Odhad náročnosti přechodu</h3>
+        <ul style="margin:0;padding-left:18px">
+          <li>Příprava infrastruktury AWS: <b>1,5 – 2 člověkodny</b></li>
+          <li>Samotný přesun a přepojení služeb: <b>~1 člověkoden</b></li>
+          <li>Plánovaná odstávka eshopu: <b>1 – 2 hodiny</b> (v noci)</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin:0 0 6px">Jak riziko snížit, pokud začneme v Cloudu</h3>
+        <ul style="margin:0;padding-left:18px">
+          <li>Nepoužívat služby dostupné jen v Cloudu, od začátku volit přenositelná řešení</li>
+          <li>Pokud to Cloud umožní, ukládat obrázky do vlastního úložiště</li>
+          <li>Pravidelně stahovat zálohu databáze k sobě</li>
+          <li>Vést si přehled všech napojených služeb a jejich adres</li>
+        </ul>
+      </div>
+    </div>
+    <p class="callout"><b>Pozor:</b> Při neuhrazení faktury Cloud projekty postupně pozastaví a po 7 – 28 dnech nevratně smaže včetně databáze. Pravidelná vlastní záloha je proto rozumná v každém případě.</p>
+  </section>
+
+  <!-- ARCHITEKTURA -->
+  <section>
+    <h2>Jak to bude reálně vypadat</h2>
+    <p class="lead">Kde co poběží a na jakých adresách. Příklad pro doménu <b>eshop.cz</b>.</p>
+    <div class="grid2">
+      <div class="arch cloud">
+        <h3><span class="tag cloud">Medusa Cloud</span></h3>
+        <div class="flow">
+          <div class="node"><b>Zákazník</b><span class="who">prohlížeč / mobil</span></div>
+          <div class="arrow">↓</div>
+          <div class="zone">
+            <span class="zone-label">Infrastruktura Medusa Cloud · EU (Frankfurt) dle volby</span>
+            <div class="node"><b>Eshop</b><code>eshop.cz</code> <span class="yes">✓ naše doména</span></div>
+            <div class="node"><b>Správa obchodu a objednávek</b><code>nas-projekt.medusajs.app</code> <span class="warn">doména Medusy</span></div>
+            <div class="node"><b>Databáze, obrázky, e-maily, zálohy</b><span class="who">spravuje Medusa</span></div>
+          </div>
+          <div class="arrow">↕</div>
+          <div class="node"><b>Napojené služby</b><span class="who">platební brána, Packeta, Fakturoid – komunikují s adresou Medusy</span></div>
+        </div>
+      </div>
+      <div class="arch aws">
+        <h3><span class="tag aws">Vlastní AWS</span></h3>
+        <div class="flow">
+          <div class="node"><b>Zákazník</b><span class="who">prohlížeč / mobil</span></div>
+          <div class="arrow">↓</div>
+          <div class="zone">
+            <span class="zone-label">Náš účet AWS · Frankfurt (EU)</span>
+            <div class="node"><b>Eshop</b><code>eshop.cz</code> <span class="yes">✓ naše doména</span></div>
+            <div class="node"><b>Správa obchodu a objednávek</b><code>admin.eshop.cz</code> <span class="yes">✓ naše doména</span></div>
+            <div class="node"><b>Databáze, obrázky, e-maily, zálohy</b><span class="who">spravujeme my, automatické denní zálohy</span></div>
+          </div>
+          <div class="arrow">↕</div>
+          <div class="node"><b>Napojené služby</b><span class="who">platební brána, Packeta, Fakturoid – komunikují s naší doménou</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="callout"><b>Proč na doméně záleží:</b> Platební brána, dopravce i fakturační systém se napojují na adresu backendu. U Medusa Cloud je to adresa dodavatele – při případném pozdějším přechodu je nutné napojení přenastavit u každé služby. U vlastního provozu adresa zůstává stále stejná.</p>
+  </section>
+
+  <!-- DOPLŇKY -->
+  <section>
+    <h2>Doplňky a napojení na další služby</h2>
+    <p class="lead">Co eshop potřebuje nad rámec základu a odkud to vezmeme. Platí stejně pro obě varianty provozu.</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Funkce</th><th>Řešení</th><th>Stav</th><th class="num">Práce</th></tr></thead>
+      <tbody>
+        <tr><td colspan="4"><b>Potřebné ke spuštění</b></td></tr>
+        <tr><td>Doprava Zásilkovna (výdejní místa, Z-BOX, doručení domů, dobírka, štítky, sledování)</td><td>Hotový doplněk od komunity, převezmeme a upravíme</td><td class="warn">Komunitní</td><td class="num">1 – 1,5 dne</td></tr>
+        <tr><td>Platby Comgate (karty, bankovní tlačítka, Apple / Google Pay)</td><td>Hotový doplněk od komunity, prověříme a otestujeme</td><td class="warn">Komunitní</td><td class="num">0,5 dne</td></tr>
+        <tr><td>QR platba pro převod na účet</td><td>Hotová knihovna</td><td class="yes">Hotové</td><td class="num">0,25 dne</td></tr>
+        <tr><td>Fakturace přes Fakturoid (automatické faktury, párování plateb)</td><td>Vlastní vývoj</td><td class="no">Vyvíjíme</td><td class="num">1 – 1,5 dne</td></tr>
+        <tr><td>Transakční e-maily v češtině (objednávka, odeslání, registrace)</td><td>Oficiální napojení + vlastní šablony</td><td class="warn">Šablony vyvíjíme</td><td class="num">0,5 dne</td></tr>
+        <tr><td>Vyhledávání v produktech</td><td>Oficiální součást Medusy</td><td class="yes">Hotové</td><td class="num">—</td></tr>
+        <tr><td>Přihlášení zákazníků (e-mail, Google)</td><td>Oficiální součást Medusy</td><td class="yes">Hotové</td><td class="num">—</td></tr>
+        <tr><td colspan="4"><b>Krátce po spuštění</b></td></tr>
+        <tr><td>Feedy pro Heureka, Zboží.cz a Google Nákupy</td><td>Vlastní vývoj</td><td class="no">Vyvíjíme</td><td class="num">0,5 – 1 den</td></tr>
+        <tr><td>Měření návštěvnosti (Google Analytics, Meta Pixel)</td><td>Napojení na straně eshopu</td><td class="yes">Hotové</td><td class="num">0,25 dne</td></tr>
+        <tr><td>Newsletter (Ecomail)</td><td>Komunitní doplněk – nutno ověřit, případně vlastní vývoj</td><td class="warn">K ověření</td><td class="num">0,5 – 1 den</td></tr>
+        <tr><td>Připomenutí opuštěného košíku</td><td>Komunitní doplněk</td><td class="warn">Komunitní</td><td class="num">0,5 dne</td></tr>
+        <tr><td>Hodnocení produktů</td><td>Komunitní doplněk</td><td class="warn">Komunitní</td><td class="num">0,5 – 1 den</td></tr>
+        <tr><td>Další dopravci (PPL, DPD, Balíkovna)</td><td>Vlastní vývoj – pouze pokud nebude Zásilkovna stačit</td><td class="no">Volitelné</td><td class="num">1,5 – 2,5 dne / dopravce</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="callout"><b>Celkem pro spuštění: cca 4,5 – 5,5 MD</b> na napojeních včetně testování (bez vývoje samotného eshopu). Komunitní doplňky výrazně zkracují vývoj, ale jsou mladé a udržuje je jednotlivec – proto je převezmeme do vlastní správy. Vlastní doplňky (Fakturoid, feedy) lze znovu použít na každém dalším eshopu.</p>
+  </section>
+
+  <!-- CO JE V CENĚ -->
+  <section class="accordion">
+    <details>
+    <summary><h2>Co je v ceně</h2><span class="hint">Technické detaily – rozbalit</span></summary>
+    <p class="lead">Medusa Cloud dodává řadu služeb v jednom balíku. U AWS je skládáme z jednotlivých služeb – všechny potřebné jsou již započítány v uvedené ceně ~1 000 Kč / měsíc.</p>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Schopnost</th><th>Medusa Cloud</th><th>Vlastní AWS – čím ji pokryjeme</th><th class="num">Cena na AWS</th></tr></thead>
+      <tbody>
+        <tr><td><b>Provoz eshopu a administrace</b></td><td class="yes">V ceně</td><td>Virtuální server (Lightsail)</td><td class="num">v ceně</td></tr>
+        <tr><td><b>Databáze a automatické zálohy</b></td><td class="yes">V ceně</td><td>Spravovaná databáze s denními zálohami</td><td class="num">v ceně</td></tr>
+        <tr><td><b>Obrázky a jejich rychlé doručení (CDN)</b></td><td class="yes">V ceně</td><td>Úložiště souborů + CDN</td><td class="num">v ceně</td></tr>
+        <tr><td><b>Odesílání e-mailů</b> (potvrzení objednávek apod.)</td><td class="yes">V ceně (do 10 000 / měsíc)</td><td>Amazon SES</td><td class="num">~2 Kč / 1 000 e-mailů</td></tr>
+        <tr><td><b>Vyhledávání v eshopu</b></td><td class="yes">V ceně</td><td>Vestavěné vyhledávání Medusy</td><td class="num">zdarma</td></tr>
+        <tr><td><b>Nasazování nových verzí</b></td><td class="yes">V ceně</td><td>Automatické nasazení z GitHubu</td><td class="num">zdarma</td></tr>
+        <tr><td><b>Hlídání dostupnosti a upozornění</b></td><td class="yes">V ceně</td><td>Monitoring AWS + externí hlídání dostupnosti</td><td class="num">zdarma</td></tr>
+        <tr><td><b>Testovací prostředí</b></td><td>3 náhledy v ceně, trvalé +1 400 Kč</td><td>Samostatný menší server</td><td class="num">+300 Kč / měsíc</td></tr>
+        <tr><td><b>Automatické navýšení výkonu při špičce</b></td><td class="yes">Ano</td><td class="warn">Ne – výkon navyšujeme ručně (cca 15 min)</td><td class="num">—</td></tr>
+        <tr><td><b>Nasazení nové verze bez výpadku</b></td><td class="yes">Ano</td><td class="warn">Krátký výpadek v řádu sekund (nasazujeme mimo špičku)</td><td class="num">—</td></tr>
+        <tr><td><b>Řešení výpadků v noci a o víkendu</b></td><td class="yes">Dodavatel</td><td class="warn">Interní tým</td><td class="num">—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Automatické navyšování výkonu a nasazení bez výpadku jsou při návštěvnosti ve stovkách až nízkých tisících denně spíše rezervou než nutností. Odesílání e-mailů přes Amazon SES je před spuštěním potřeba jednorázově aktivovat (schválení ze strany AWS, obvykle do 1–2 dnů).</p>
+    </details>
+  </section>
+
+</main>
+
+<footer>
+  Stav k 10/2026. Všechny ceny jsou orientační odhady bez DPH, přepočteno kurzem 23 Kč / USD a zaokrouhleno. Zdroje: oficiální ceník a dokumentace Medusa Cloud (regiony, DPA) a ceník AWS pro region Frankfurt. Skutečná cena se může lišit podle reálné návštěvnosti.
+</footer>
+
+</body>
+</html>

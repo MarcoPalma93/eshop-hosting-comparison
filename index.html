@@ -31,6 +31,11 @@
   .option h3 { margin: 10px 0 4px; font-size: 1.2rem; }
   .price { font-size: 2.2rem; font-weight: 700; margin: 8px 0 0; }
   .price small { font-size: .95rem; font-weight: 400; color: var(--muted); }
+  .costs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 0; }
+  .costs > div { background: var(--bg); border-radius: 8px; padding: 10px 12px; }
+  .costs .label { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .costs .price { font-size: 1.6rem; margin: 2px 0 0; }
+  @media (max-width: 560px) { .costs { grid-template-columns: 1fr; } }
   .option ul { padding-left: 18px; margin: 12px 0 0; }
   .option li { margin: 4px 0; }
   table { width: 100%; border-collapse: collapse; font-size: .95rem; }
@@ -83,13 +88,15 @@
   <!-- SOUHRN -->
   <section>
     <h2>Souhrn</h2>
-    <p class="lead">Náklady jednoho eshopu při startovní návštěvnosti. Měsíční cena zahrnuje službu i údržbu dodavatelem. Ceny jsou bez DPH.</p>
+    <p class="lead">Náklady jednoho eshopu při startovní návštěvnosti: jednorázový vývoj do spuštění a měsíční provoz (služba + údržba dodavatelem). Ceny jsou bez DPH, frontend (design a kódování eshopu) není zahrnut.</p>
     <div class="grid2">
       <div class="option cloud">
         <span class="tag cloud">Varianta 1</span>
         <h3>Medusa Cloud (tarif Launch)</h3>
-        <p class="price">3 350 Kč <small>/ měsíc</small></p>
-        <p class="note">v horším případě účtování 5 050 Kč · jednorázově <b>68 – 88 tis. Kč</b></p>
+        <div class="costs">
+          <div><div class="label">Vývoj (jednorázově)</div><p class="price">68 – 88 <small>tis. Kč</small></p></div>
+          <div><div class="label">Provoz</div><p class="price">3 350 <small>Kč / měsíc</small></p><div class="note">služba 2 350 + údržba 1 000<br>v horším případě 5 050 Kč</div></div>
+        </div>
         <ul>
           <li><b>+</b> Provoz, zálohy a výpadky nonstop řeší Medusa</li>
           <li><b>+</b> Automatické navýšení výkonu a nasazení bez výpadku – výhoda při startu v sezóně</li>
@@ -102,8 +109,10 @@
       <div class="option aws">
         <span class="tag aws">Varianta 2 – doporučeno při plánu dalších eshopů</span>
         <h3>Vlastní provoz na AWS</h3>
-        <p class="price">3 000 Kč <small>/ měsíc</small></p>
-        <p class="note">jednorázově <b>76 – 100 tis. Kč</b></p>
+        <div class="costs">
+          <div><div class="label">Vývoj (jednorázově)</div><p class="price">76 – 100 <small>tis. Kč</small></p></div>
+          <div><div class="label">Provoz</div><p class="price">3 000 <small>Kč / měsíc</small></p><div class="note">služba 1 000 + údržba 2 000</div></div>
+        </div>
         <ul>
           <li><b>+</b> Převážně fixní, předvídatelná cena</li>
           <li><b>+</b> Vše na vlastní doméně, žádné nejasnosti v účtování</li>

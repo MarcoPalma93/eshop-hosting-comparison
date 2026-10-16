@@ -89,7 +89,7 @@
   <!-- SOUHRN -->
   <section>
     <h2>Souhrn</h2>
-    <p class="lead">Náklady jednoho eshopu při startovní návštěvnosti: jednorázový vývoj do spuštění a měsíční provoz (služba + údržba dodavatelem). Ceny jsou bez DPH, frontend (design a kódování eshopu) není zahrnut.</p>
+    <p class="lead">Náklady jednoho eshopu při startovní návštěvnosti: jednorázový vývoj do spuštění a měsíční provoz (služba + údržba dodavatelem). Frontend (design a kódování eshopu) není zahrnut.</p>
     <div class="grid2">
       <div class="option cloud">
         <span class="tag cloud">Varianta 1</span>
@@ -99,7 +99,7 @@
           <div><div class="label">Provoz</div><p class="price">3 150 <small>Kč / měsíc</small></p><div class="note">služba 2 350 + údržba 800<br>v horším případě 4 850 Kč</div></div>
         </div>
         <ul>
-          <li><b>+</b> Provoz, zálohy a výpadky nonstop řeší Medusa</li>
+          <li><b>+</b> Provoz, zálohy a výpadky infrastruktury řeší Medusa (bez garance – SLA až v tarifu Enterprise)</li>
           <li><b>+</b> Automatické navýšení výkonu a nasazení bez výpadku – výhoda při startu v sezóně</li>
           <li><b>+</b> Nižší vstupní náklady</li>
           <li><b>−</b> Nejasné účtování výpočetního času (riziko +1 700 Kč / měsíc), doplatky bez stropu</li>
@@ -108,7 +108,7 @@
         </ul>
       </div>
       <div class="option aws">
-        <span class="tag aws">Varianta 2 – doporučeno při plánu dalších eshopů</span>
+        <span class="tag aws">Varianta 2 – doporučeno</span>
         <h3>Vlastní provoz na AWS</h3>
         <div class="costs">
           <div><div class="label">Vývoj (jednorázově)</div><p class="price">61 – 80 <small>tis. Kč</small></p></div>
@@ -139,13 +139,13 @@
         <tr><td><b>Předvídatelnost ceny</b></td><td class="warn">Proměnlivá – doplatky se účtují automaticky, strop nelze nastavit</td><td class="yes">Převážně fixní – roste jen při ručním navýšení výkonu</td></tr>
         <tr><td><b>Špička (sezóna, kampaň)</b></td><td class="yes">Výkon se navyšuje automaticky</td><td class="warn">Výkon navyšujeme ručně, na sezónu preventivně</td></tr>
         <tr><td><b>Nasazení nové verze</b></td><td class="yes">Bez výpadku</td><td class="warn">Výpadek v řádu sekund, nasazujeme mimo špičku</td></tr>
-        <tr><td><b>Výpadky v noci a o víkendu</b></td><td class="yes">Řeší Medusa</td><td class="warn">Řeší dodavatel, bez garance nonstop dostupnosti</td></tr>
+        <tr><td><b>Výpadky v noci a o víkendu</b></td><td class="warn">Infrastrukturu řeší Medusa (bez garance), chyby aplikace a napojených služeb dodavatel</td><td class="warn">Řeší dodavatel, bez garance nonstop dostupnosti</td></tr>
         <tr><td><b>Garance dostupnosti (SLA)</b></td><td>Pouze v tarifu Enterprise</td><td>Infrastrukturu garantuje AWS, aplikaci dodavatel</td></tr>
         <tr><td><b>Domény</b></td><td class="warn">Eshop na naší doméně, administrace a napojení služeb na doméně Medusy</td><td class="yes">Vše na naší doméně</td></tr>
         <tr><td><b>Data (GDPR)</b></td><td>EU (Frankfurt), poskytovatel z USA (Medusa) a jeho subdodavatelé – seznam nezveřejněn</td><td>EU (Frankfurt), poskytovatel z USA (Amazon) – standardní smlouva o zpracování dat</td></tr>
         <tr><td><b>Testovací prostředí</b></td><td>Náhledy v ceně</td><td>Volitelně +300 Kč / měsíc</td></tr>
         <tr><td><b>Další eshop</b> (měsíčně vč. údržby)</td><td>+2 750 Kč</td><td>+1 450 Kč</td></tr>
-        <tr><td><b>Přechod z Cloudu na AWS</b></td><td class="warn">2,5 – 3 MD a odstávka 1 – 2 h (viz <a href="#migrace">Přechod z Cloudu</a>)</td><td>—</td></tr>
+        <tr><td><b>Přechod z Cloudu na AWS</b></td><td class="warn">2,5 – 3 MD (16 – 19 tis. Kč) a odstávka 1 – 2 h (viz <a href="#migrace">Přechod z Cloudu</a>)</td><td>—</td></tr>
       </tbody>
     </table>
     </div>
@@ -186,9 +186,10 @@
       <b>Co cena nezahrnuje</b>
       <ul style="margin:6px 0 0">
         <li><b>Grafický návrh a vývoj samotného eshopu (frontend)</b> – samostatné schválení, pro obě varianty stejné.</li>
-        <li><b>Doplňky po spuštění</b> (feedy pro Heureka / Zboží / Google, newsletter, opuštěný košík) – dalších 2 – 4 MD.</li>
+        <li><b>Doplňky po spuštění</b> (feedy pro Heureka / Zboží / Google, newsletter, opuštěný košík) – dalších 1,5 – 2,5 MD (10 – 16 tis. Kč).</li>
+        <li><b>Mimořádné zásahy</b> nad rámec měsíční údržby (řešení výpadku, úpravy na přání) – účtují se hodinovou sazbou 800 Kč / h.</li>
         <li><b>Poplatky třetích stran</b> stejné pro obě varianty: platební brána (procento z obratu dle tarifu Comgate), Zásilkovna (cena za zásilku), předplatné Fakturoid, doména.</li>
-        <li><b>DPH:</b> ceny jsou bez DPH. AWS i Medusa fakturují ze zahraničí bez DPH, plátce DPH si daň vyměří sám (přenesená daňová povinnost).</li>
+        <li><b>DPH:</b> AWS i Medusa fakturují ze zahraničí bez DPH, plátce DPH si daň vyměří sám (přenesená daňová povinnost). Neplátce se nákupem služeb ze zahraničí stává identifikovanou osobou a DPH 21 % odvádí – služba je pro něj o 21 % dražší.</li>
         <li><b>Kurz:</b> služby se platí v USD, přepočteno kurzem 23 Kč / USD. Při kurzu 25 Kč / USD vzrostou ceny služeb o cca 9 %.</li>
       </ul>
     </div>
@@ -203,18 +204,20 @@
       <thead><tr><th>Období</th><th>Co se děje</th></tr></thead>
       <tbody>
         <tr><td><b>Týden od 19. 10.</b></td><td>Založení účtů a smluv (Comgate, Zásilkovna, Fakturoid, AWS a aktivace e-mailů), nastavení provozu</td></tr>
-        <tr><td><b>26. 10. – 6. 11.</b></td><td>Nastavení obchodu, pluginy (Zásilkovna, Comgate, Fakturoid, QR platba, e-maily)</td></tr>
-        <tr><td><b>2. 11. – 20. 11.</b></td><td>Napojení eshopu na Medusu (navazuje na dodání frontendu)</td></tr>
-        <tr><td><b>16. 11. – 20. 11.</b></td><td>Testování celého nákupu včetně skutečných plateb a zásilek, spuštění</td></tr>
+        <tr><td><b>26. 10. – 6. 11.</b></td><td>Nastavení obchodu, pluginy (Zásilkovna, Comgate, Fakturoid, QR platba, e-maily) · 28. 10. svátek</td></tr>
+        <tr><td><b>6. 11.</b></td><td><b>Dodání frontendu</b> – doporučený nejzazší termín (všechny stránky včetně košíku a objednávky)</td></tr>
+        <tr><td><b>9. 11. – 13. 11.</b></td><td>Napojení eshopu na Medusu (s napojením katalogu lze začít dřív, pokud budou stránky hotové)</td></tr>
+        <tr><td><b>16. 11. – 20. 11.</b></td><td>Testování celého nákupu včetně skutečných plateb a zásilek, spuštění · 17. 11. svátek</td></tr>
+        <tr><td><b>23. 11. – 26. 11.</b></td><td>Rezerva na opravy před Black Friday</td></tr>
       </tbody>
     </table>
     </div>
     <ul>
       <li><b>Doporučení:</b> spustit do <b>20. 11.</b>, aby první ostrý provoz neproběhl přímo v týdnu Black Friday.</li>
-      <li><b>Kritická cesta:</b> smlouva s Comgate (zahájit ihned, doba schválení je mimo naši kontrolu) a včasné dodání frontendu.</li>
+      <li><b>Kritická cesta:</b> smlouva s Comgate (zahájit ihned, doba schválení je mimo naši kontrolu) a dodání frontendu do 6. 11. Každý týden zpoždění frontendu posouvá spuštění o týden – při dodání po 13. 11. by spuštění vyšlo až na týden Black Friday.</li>
       <li><b>Start v sezóně na AWS:</b> výkon na listopad – prosinec preventivně navýšíme (započteno v nákladech prvního roku) a během špičky nebudeme nasazovat nové verze.</li>
       <li><b>Závislost na jedné osobě:</b> provoz AWS zajišťuje dodavatel. Zmírnění: zdokumentovaný provoz, infrastruktura popsaná kódem, automatické zálohy a upozornění – provoz lze v případě potřeby předat.</li>
-      <li><b>Cloud – neuhrazená faktura:</b> projekty se postupně pozastaví a po 7 – 28 dnech nevratně smažou včetně databáze.</li>
+      <li><b>Neuhrazená faktura:</b> obě služby při neplacení účet pozastaví a hrozí ztráta dat (Medusa Cloud projekty po 7 – 28 dnech nevratně smaže včetně databáze). Doporučujeme platbu firemní kartou a hlídání její platnosti.</li>
     </ul>
     <div class="callout">
       <b>Třetí možnost: start na Cloudu, přechod na AWS s druhým eshopem.</b> Riziko provozu v první sezóně nese Medusa. Proti přímému startu na AWS je ale o <b>17 – 43 tis. Kč dražší</b> (vyšší měsíční cena Cloudu a pozdější přechod 2,5 – 3 MD). Dává smysl jen tehdy, když je pro nás jistota první sezóny důležitější než cena.
@@ -265,19 +268,19 @@
       </tbody>
     </table>
     </div>
-    <p class="note"><b>Medusa Cloud:</b> každý eshop je samostatný projekt s vlastním tarifem; v horším případě účtování +1 700 Kč / měsíc za každý eshop. <b>Vlastní AWS:</b> eshopy sdílejí server a databázi, každý má ale vlastní databázi, přístupy, úložiště a klíče k platebním a dalším službám – data jednotlivých eshopů jsou od sebe oddělená. Každý eshop navíc potřebuje vlastní smlouvy s Comgate, Zásilkovnou a Fakturoidem.</p>
+    <p class="note"><b>Medusa Cloud:</b> každý eshop je samostatný projekt s vlastním tarifem; v horším případě účtování +1 700 Kč / měsíc za každý eshop. <b>Vlastní AWS:</b> eshopy sdílejí server a databázový server, každý eshop má ale vlastní databázi, přístupy, úložiště a klíče k platebním a dalším službám – data jednotlivých eshopů jsou od sebe oddělená. Každý eshop navíc potřebuje vlastní smlouvy s Comgate, Zásilkovnou a Fakturoidem.</p>
     <p class="callout"><b>Rizika sdíleného serveru:</b> výpadek serveru se dotkne všech eshopů najednou a velká kampaň jednoho eshopu může zpomalit ostatní (omezujeme limity výkonu pro každý eshop). Eshop přesuneme na vlastní server (cca +550 Kč / měsíc), pokud to klient smluvně požaduje, pokud výrazně naroste, nebo pokud na serveru poběží víc než 4 – 5 eshopů.</p>
   </section>
 
   <!-- DOPORUČENÍ -->
   <section>
     <h2>Doporučení</h2>
-    <p><b>Vlastní provoz na AWS, pokud počítáme s dalšími eshopy.</b> U jediného eshopu vychází AWS v prvním roce mírně levněji. Každý další eshop je na AWS levnější o cca 1 300 Kč měsíčně a vyšší vstupní náklady se se druhým eshopem vrátí do jednoho roku. Navíc odpadají nejasnosti v účtování Cloudu a vše běží na vlastních doménách.</p>
-    <p class="note">Hlavní slabinou AWS je provozní riziko při startu v sezóně – zmírníme ho preventivním navýšením výkonu a zákazem nasazování během špičky. Pokud je prioritou co nejnižší riziko při spuštění, je rozumnou alternativou start na Cloudu a přechod na AWS s druhým eshopem.</p>
+    <p><b>Vlastní provoz na AWS.</b> Vychází levněji už u jednoho eshopu – v prvním roce o cca 4 – 21 tis. Kč, vyšší vstupní náklady se vrátí během prvního roku provozu. S každým dalším eshopem se rozdíl zvětšuje o cca 1 300 Kč měsíčně. Navíc odpadají nejasnosti v účtování Cloudu a vše běží na vlastních doménách.</p>
+    <p class="note">Hlavní slabinou AWS je provozní riziko při startu v sezóně – zmírníme ho preventivním navýšením výkonu a zákazem nasazování během špičky. Pokud je prioritou co nejnižší riziko při spuštění, je alternativou start na Cloudu a přechod na AWS s druhým eshopem (o 17 – 43 tis. Kč dražší).</p>
     <div class="callout">
       <b>Úkoly před případnou volbou Cloudu</b> (zajistí dodavatel u Medusy):
       <ul style="margin:6px 0 0">
-        <li>Jak se účtuje výpočetní čas – za každý server, nebo za celé prostředí? (rozdíl cca 1 700 Kč / měsíc)</li>
+        <li>Jak se účtuje výpočetní čas – za každý server, nebo za celé prostředí? Tarif Launch běží na dvou serverech; při účtování za server se limit tarifu (1 000 h) pravidelně překročí (rozdíl cca 1 700 Kč / měsíc).</li>
         <li>Lze nastavit pevný strop útraty?</li>
         <li>Lze hromadně exportovat obrázky a soubory, případně používat vlastní úložiště?</li>
         <li>Zůstávají v EU i zálohy a logy? Kdo jsou subdodavatelé a odkud přistupuje podpora?</li>
@@ -298,7 +301,7 @@
         <tr><td><b>Databáze</b> (produkty, objednávky, zákazníci)</td><td class="yes">Snadné</td><td>Cloud umožňuje kdykoli stáhnout kompletní zálohu databáze.</td></tr>
         <tr><td><b>Obrázky a soubory</b></td><td class="warn">Střední</td><td>K úložišti Cloudu nemáme přímý přístup a hromadný export není zdokumentovaný. Obrázky lze stáhnout přes veřejné adresy, ale je potřeba přepsat odkazy v databázi.</td></tr>
         <tr><td><b>Napojení služeb</b> (Comgate, Zásilkovna, Fakturoid)</td><td class="warn">Střední</td><td>Služby se napojují na adresu, která je v Cloudu na doméně Medusy. Při přechodu je nutné adresu přenastavit u každé služby.</td></tr>
-        <tr><td><b>Služby dostupné jen v Cloudu</b> (e-maily, vyhledávání)</td><td class="warn">Střední</td><td>Pokud je začneme používat, musíme je nahradit.</td></tr>
+        <tr><td><b>Služby dostupné jen v Cloudu</b> (odesílání e-mailů)</td><td class="warn">Střední</td><td>Pokud je začneme používat, musíme je nahradit.</td></tr>
       </tbody>
     </table>
     </div>
@@ -419,7 +422,7 @@
 </main>
 
 <footer>
-  Stav k 15. 10. 2026. Všechny ceny jsou orientační odhady bez DPH, přepočteno kurzem 23 Kč / USD a zaokrouhleno. Zdroje: oficiální ceník a dokumentace Medusa Cloud (regiony, smlouva o zpracování dat) a ceník AWS pro region Frankfurt.
+  Stav k 16. 10. 2026. Všechny ceny jsou orientační odhady bez DPH, přepočteno kurzem 23 Kč / USD a zaokrouhleno. Zdroje: oficiální ceník a dokumentace Medusa Cloud (regiony, smlouva o zpracování dat) a ceník AWS pro region Frankfurt.
 </footer>
 
 </body>

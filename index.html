@@ -92,7 +92,7 @@
     <p class="lead">Náklady jednoho eshopu při startovní návštěvnosti: jednorázový vývoj do spuštění a měsíční provoz (služba + údržba dodavatelem). Frontend (design a kódování eshopu) není zahrnut.</p>
     <div class="grid2">
       <div class="option cloud">
-        <span class="tag cloud">Varianta 1</span>
+        <span class="tag cloud">Varianta 1 – doporučeno pro spuštění a sezónu</span>
         <h3>Medusa Cloud (tarif Launch)</h3>
         <div class="costs">
           <div><div class="label">Vývoj (jednorázově)</div><p class="price">54 – 70 <small>tis. Kč</small></p></div>
@@ -108,7 +108,7 @@
         </ul>
       </div>
       <div class="option aws">
-        <span class="tag aws">Varianta 2 – doporučeno</span>
+        <span class="tag aws">Varianta 2 – doporučeno od ledna 2027</span>
         <h3>Vlastní provoz na AWS</h3>
         <div class="costs">
           <div><div class="label">Vývoj (jednorázově)</div><p class="price">61 – 80 <small>tis. Kč</small></p></div>
@@ -124,6 +124,7 @@
         </ul>
       </div>
     </div>
+      <p class="callout" style="margin-top:16px"><b>Doporučený postup: spustit na Medusa Cloud a po sezóně, v lednu 2027, přejít na vlastní AWS.</b> Spuštění a první sezónu zvládneme s nižšími vstupními náklady, méně prací před spuštěním a s automatickým navýšením výkonu. Od února poběží eshop na levnějším AWS připraveném pro další eshopy. Vývoj ke spuštění <b>54 – 70 tis. Kč</b>, přechod v lednu <b>16 – 19 tis. Kč</b>, provoz od února <b>2 600 Kč / měsíc</b>. První rok celkem <b>110 – 135 tis. Kč</b> – o cca 17 – 22 tis. Kč víc než přímý start na AWS.</p>
   </section>
 
   <!-- POROVNÁNÍ -->
@@ -173,14 +174,14 @@
     <h3 style="margin:24px 0 8px">Celkové náklady za první rok</h3>
     <div class="table-scroll">
     <table>
-      <thead><tr><th></th><th class="num">Medusa Cloud</th><th class="num">Vlastní AWS</th></tr></thead>
+      <thead><tr><th></th><th class="num">Medusa Cloud</th><th class="num">Vlastní AWS</th><th class="num">Cloud → AWS v lednu<br>(doporučeno)</th></tr></thead>
       <tbody>
-        <tr><td><b>Jednorázové náklady + 12 měsíců provozu a údržby</b></td><td class="num">97 – 134 tis. Kč</td><td class="num">93 – 113 tis. Kč</td></tr>
+        <tr><td><b>Jednorázové náklady + 12 měsíců provozu a údržby</b></td><td class="num">97 – 134 tis. Kč</td><td class="num">93 – 113 tis. Kč</td><td class="num"><b>110 – 135 tis. Kč</b></td></tr>
       </tbody>
     </table>
     </div>
-    <p class="note">Předpoklady: jeden eshop, spuštění na konci listopadu – první 2 měsíce v sezóně (Cloud ~5 000 Kč, AWS ~1 750 Kč za službu), dalších 10 měsíců startovní návštěvnost. Horní hranice Cloudu zahrnuje horší variantu účtování výpočetního času.</p>
-    <p class="callout"><b>Shrnutí:</b> U jednoho eshopu vychází AWS v prvním roce mírně levněji (o cca 4 – 21 tis. Kč) – vyšší vstupní náklady vyrovná nižší měsíční cena a rozpětí je užší a předvídatelnější. S dalšími eshopy se rozdíl ve prospěch AWS dále zvětšuje (viz níže).</p>
+    <p class="note">Předpoklady: jeden eshop, spuštění na konci listopadu – první 2 měsíce v sezóně (Cloud ~5 000 Kč, AWS ~1 750 Kč za službu), dalších 10 měsíců startovní návštěvnost. Horní hranice Cloudu zahrnuje horší variantu účtování výpočetního času. Postup Cloud → AWS: listopad – prosinec na Cloudu, přechod začátkem ledna (2,5 – 3 MD, 16 – 19 tis. Kč), jeden měsíc souběhu obou služeb, dalších 10 měsíců na AWS.</p>
+    <p class="callout"><b>Shrnutí:</b> Přímý start na AWS je v prvním roce nejlevnější. Doporučený postup přes Cloud stojí o cca 17 – 22 tis. Kč víc, ale riziko provozu v první sezóně nese Medusa a před spuštěním je méně práce. Od února jsou měsíční náklady stejné jako při přímém startu na AWS a s dalšími eshopy se rozdíl ve prospěch AWS zvětšuje (viz níže).</p>
 
     <div class="callout">
       <b>Co cena nezahrnuje</b>
@@ -203,23 +204,24 @@
     <table>
       <thead><tr><th>Období</th><th>Co se děje</th></tr></thead>
       <tbody>
-        <tr><td><b>Týden od 19. 10.</b></td><td>Založení účtů a smluv (Comgate, Zásilkovna, Fakturoid, AWS a aktivace e-mailů), nastavení provozu</td></tr>
+        <tr><td><b>Týden od 19. 10.</b></td><td>Založení účtů a smluv (Comgate, Zásilkovna, Fakturoid, Medusa Cloud), nastavení provozu</td></tr>
         <tr><td><b>26. 10. – 6. 11.</b></td><td>Nastavení obchodu, pluginy (Zásilkovna, Comgate, Fakturoid, QR platba, e-maily)</td></tr>
         <tr><td><b>6. 11.</b></td><td><b>Dodání frontendu</b> – doporučený nejzazší termín (všechny stránky včetně košíku a objednávky)</td></tr>
         <tr><td><b>9. 11. – 13. 11.</b></td><td>Napojení eshopu na Medusu (s napojením katalogu lze začít dřív, pokud budou stránky hotové)</td></tr>
         <tr><td><b>16. 11. – 20. 11.</b></td><td>Testování celého nákupu včetně skutečných plateb a zásilek, spuštění</td></tr>
         <tr><td><b>23. 11. – 26. 11.</b></td><td>Rezerva na opravy před Black Friday</td></tr>
+        <tr><td><b>Leden 2027</b></td><td>Přechod na vlastní AWS (2,5 – 3 MD), plánovaná odstávka 1 – 2 h v noci</td></tr>
       </tbody>
     </table>
     </div>
     <ul>
       <li><b>Doporučení:</b> spustit do <b>20. 11.</b>, aby první ostrý provoz neproběhl přímo v týdnu Black Friday.</li>
       <li><b>Kritická cesta:</b> smlouva s Comgate (zahájit ihned, doba schválení je mimo naši kontrolu) a dodání frontendu do 6. 11. Každý týden zpoždění frontendu posouvá spuštění o týden – při dodání po 13. 11. by spuštění vyšlo až na týden Black Friday.</li>
-      <li><b>Start v sezóně na AWS:</b> výkon na listopad – prosinec preventivně navýšíme (započteno v nákladech prvního roku) a během špičky nebudeme nasazovat nové verze.</li>
-      <li><b>Závislost na jedné osobě:</b> provoz AWS zajišťuje dodavatel. Zmírnění: zdokumentovaný provoz, infrastruktura popsaná kódem, automatické zálohy a upozornění – provoz lze v případě potřeby předat.</li>
+      <li><b>Start v sezóně na Cloudu:</b> výkon se během špičky navyšuje automaticky a nové verze se nasazují bez výpadku. Přechod na AWS plánujeme až po sezóně, mimo nákupní špičku.</li>
+      <li><b>Závislost na jedné osobě:</b> provoz AWS (od ledna) zajišťuje dodavatel. Zmírnění: zdokumentovaný provoz, infrastruktura popsaná kódem, automatické zálohy a upozornění – provoz lze v případě potřeby předat.</li>
     </ul>
     <div class="callout">
-      <b>Třetí možnost: start na Cloudu, přechod na AWS s druhým eshopem.</b> Riziko provozu v první sezóně nese Medusa. Proti přímému startu na AWS je ale o <b>17 – 43 tis. Kč dražší</b> (vyšší měsíční cena Cloudu a pozdější přechod 2,5 – 3 MD). Dává smysl jen tehdy, když je pro nás jistota první sezóny důležitější než cena.
+      <b>Alternativa: přímý start na AWS.</b> V prvním roce o cca <b>17 – 22 tis. Kč levnější</b> a bez pozdějšího přechodu. Riziko provozu v první sezóně ale nese dodavatel (výkon preventivně navýšíme, během špičky nebudeme nasazovat nové verze) a před spuštěním je o 1 – 1,5 MD práce víc.
     </div>
   </section>
 
@@ -274,10 +276,10 @@
   <!-- DOPORUČENÍ -->
   <section>
     <h2>Doporučení</h2>
-    <p><b>Vlastní provoz na AWS.</b> Vychází levněji už u jednoho eshopu – v prvním roce o cca 4 – 21 tis. Kč, vyšší vstupní náklady se vrátí během prvního roku provozu. S každým dalším eshopem se rozdíl zvětšuje o cca 1 300 Kč měsíčně. Navíc odpadají nejasnosti v účtování Cloudu a vše běží na vlastních doménách.</p>
-    <p class="note">Hlavní slabinou AWS je provozní riziko při startu v sezóně – zmírníme ho preventivním navýšením výkonu a zákazem nasazování během špičky. Pokud je prioritou co nejnižší riziko při spuštění, je alternativou start na Cloudu a přechod na AWS s druhým eshopem (o 17 – 43 tis. Kč dražší).</p>
+    <p><b>Spustit na Medusa Cloud a v lednu 2027 přejít na vlastní AWS.</b> Spuštění v sezóně je nejrizikovější okamžik – na Cloudu se výkon navyšuje automaticky, nové verze se nasazují bez výpadku a výpadky infrastruktury řeší Medusa. Před spuštěním je navíc méně práce, protože odpadá příprava vlastního serveru. Po sezóně přejdeme na AWS, které je dlouhodobě levnější (o cca 550 Kč měsíčně u jednoho eshopu a o cca 1 300 Kč u každého dalšího), bez nejasností v účtování a s vlastními doménami.</p>
+    <p class="note">Za nižší riziko v sezóně zaplatíme v prvním roce o cca 17 – 22 tis. Kč víc než při přímém startu na AWS (přechod 2,5 – 3 MD a dražší provoz Cloudu v sezóně). Přechod proběhne s plánovanou odstávkou 1 – 2 h v noci a připravujeme se na něj od začátku (viz <a href="#migrace">Přechod z Cloudu</a>).</p>
     <div class="callout">
-      <b>Úkoly před případnou volbou Cloudu</b> (zajistí dodavatel u Medusy):
+      <b>Úkoly před startem na Cloudu</b> (zajistí dodavatel u Medusy):
       <ul style="margin:6px 0 0">
         <li>Jak se účtuje výpočetní čas – za každý server, nebo za celé prostředí? Tarif Launch běží na dvou serverech; při účtování za server se limit tarifu (1 000 h) pravidelně překročí (rozdíl cca 1 700 Kč / měsíc).</li>
         <li>Lze nastavit pevný strop útraty?</li>
@@ -314,7 +316,7 @@
         </ul>
       </div>
       <div>
-        <h3 style="margin:0 0 6px">Jak riziko snížit, pokud začneme v Cloudu</h3>
+        <h3 style="margin:0 0 6px">Jak si přechod usnadníme</h3>
         <ul style="margin:0;padding-left:18px">
           <li>Nepoužívat služby dostupné jen v Cloudu</li>
           <li>Pokud to Cloud umožní, ukládat obrázky do vlastního úložiště</li>

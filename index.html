@@ -43,6 +43,7 @@
   th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
   td.num, th.num { text-align: right; white-space: nowrap; }
   .table-scroll { overflow-x: auto; }
+  .cost-table th.num, .cost-table td.num { width: 22%; }
   .yes { color: var(--ok); font-weight: 600; }
   .no { color: #c0392b; font-weight: 600; }
   .warn { color: var(--warn); font-weight: 600; }
@@ -156,11 +157,11 @@
     <h2>Pracnost a celkové náklady</h2>
     <p class="lead">Práce dodavatele při sazbě <b>6 400 Kč / MD</b> (800 Kč / h).</p>
     <div class="table-scroll">
-    <table>
+    <table class="cost-table">
       <thead><tr><th>Položka</th><th class="num">Medusa Cloud</th><th class="num">Vlastní AWS</th></tr></thead>
       <tbody>
         <tr><td><b>Měsíční provoz</b><br><span class="note">služba + údržba (Cloud 1 h, AWS 2 h měsíčně)</span></td><td class="num">3 150 Kč / měsíc</td><td class="num">2 600 Kč / měsíc</td></tr>
-        <tr><td><b>Nastavení</b> (jednorázově)<br><span class="note">nastavení obchodu (DPH, doprava, měna, čeština) – stejné pro obě varianty; navíc příprava provozu</span></td><td class="num">1 – 1,5 MD<br><span class="note">6,4 – 9,6 tis. Kč</span><br><span class="note">obchod + založení projektu v Cloudu (servery, zálohy a nasazování jsou v ceně služby)</span></td><td class="num">2 – 3 MD<br><span class="note">12,8 – 19,2 tis. Kč</span><br><span class="note">obchod + příprava serveru, záloh a nasazování</span></td></tr>
+        <tr><td><b>Nastavení</b> (jednorázově)<br><span class="note">nastavení obchodu (DPH, doprava, měna, čeština); Cloud navíc založení projektu – servery, zálohy a nasazování jsou v ceně služby; AWS navíc příprava serveru, záloh a nasazování</span></td><td class="num">1 – 1,5 MD<br><span class="note">6,4 – 9,6 tis. Kč</span></td><td class="num">2 – 3 MD<br><span class="note">12,8 – 19,2 tis. Kč</span></td></tr>
         <tr><td><b>Pluginy</b> (jednorázově)<br><span class="note">Zásilkovna, Comgate, QR platba, Fakturoid, e-maily v češtině, vč. testování</span></td><td class="num">4,5 – 5,5 MD<br><span class="note">28,8 – 35,2 tis. Kč</span></td><td class="num">4,5 – 5,5 MD<br><span class="note">28,8 – 35,2 tis. Kč</span></td></tr>
         <tr><td><b>Napojení eshopu na Medusu</b> (jednorázově)<br><span class="note">katalog, košík, objednávka s výběrem dopravy a platbou, zákaznický účet, vyhledávání</span></td><td class="num">3 – 4 MD<br><span class="note">19,2 – 25,6 tis. Kč</span></td><td class="num">3 – 4 MD<br><span class="note">19,2 – 25,6 tis. Kč</span></td></tr>
         <tr><td><b>Celkem jednorázově</b></td><td class="num"><b>54 – 70 tis. Kč</b></td><td class="num"><b>61 – 80 tis. Kč</b></td></tr>
